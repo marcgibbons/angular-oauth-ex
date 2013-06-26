@@ -12,31 +12,21 @@ angular.module('AngularApp', ['ngCookies'])
           templateUrl: 'views/login.html',
           controller: 'LoginCtrl'
       })
+      .when('/logout', {
+          templateUrl: 'views/logout.html',
+          controller: 'LogoutCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
   })
-  .run(function($cookieStore, $location, $http, $rootScope) {
-    var auth = $cookieStore.get('auth');
-
-    if (auth) {
-        // Let's attempt an API call
-        $http.defaults.headers.common['Authorization'] = 'Bearer ' + auth.access_token;
-        var config = {
-            'method': 'GET',
-            'url': 'http://localhost:8000/api/user'
-        };
-
-        $http(config) // Get user data
-          .success(function(data, status) {
-            $rootScope.user = data;
-          })
-          .error(function(data, status) {
-              $location.path('/login');
-          });
-    }
-    else {
-        $location.path('/login');
-    }
-
+  .run(function($rootScope) {
+    $rootScope.CONFIG = {
+        apiUrl: 'http://localhost:8000',
+        clientId: '2a1bde6f65eaf93efaca',
+        clientSecret: '1167c2570cda47b6cedb135c3bb9d6bde404628b',
+    };
+  })
+  .run(function($cookieStore, $location, $http, $rootScope, Auth) {
+    Auth.authenticate()
   });

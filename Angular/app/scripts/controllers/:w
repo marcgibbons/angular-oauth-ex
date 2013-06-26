@@ -1,0 +1,32 @@
+'use strict';
+
+angular.module('AngularApp')
+  .controller('MainCtrl', function ($scope, $cookieStore, $http) {
+    $scope.awesomeThings = [
+      'HTML5 Boilerplate',
+      'AngularJS',
+      'Karma'
+    ];
+
+    var auth = $cookieStore.get('auth');
+
+    if (auth) {
+        // Let's attempt an API call
+        var config = {
+            'method': 'GET',
+            'headers': {
+                'Authorization': "Bearer " + auth.access_token,
+            },
+            'url': 'http://localhost:8000/api/user'
+        };
+
+        $http(config)
+          .success(function(data, status) {
+            console.log(data)
+          });
+    }
+    else {
+        console.log("No auth found");
+
+    }
+  });

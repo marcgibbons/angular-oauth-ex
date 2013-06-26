@@ -1,0 +1,10 @@
+<div class="hero-unit" ng-controller="LoginCtrl">
+    <h1>Login</h1>
+    <ng-form action="http://localhost:8000/oauth2/access_token" method="post">
+    <label for="username">User name:</label>  
+    <input type="text" id="username" ng-model="username">
+    <label for="password">Password:</label>  
+    <input type="password" id="password" ng-model="password"><br>
+    <button class="btn" type="submit" ng-click="authenticate()">Login</button>
+    </ng-form>
+</div>

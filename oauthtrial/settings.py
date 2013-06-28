@@ -169,3 +169,7 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True  # DANGEROUS!
+#CORS_ORIGIN_WHITELIST = (
+#    'localhost:9000',
+#)
+#
